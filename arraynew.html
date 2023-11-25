@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #holder {
+            display: flex;
+            gap: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="holder">
+        <div id="firstholder"> 
+            <input id="input1" onmousemove="typesomething(event)" type="text">
+            <button id="but1" onclick="displayOne()">Print</button>
+            <div id="div1"></div>
+        </div>
+        <div id="secondholder"> 
+            <input id="input2" onkeydown="writesomething()"  type="text">
+            <button id="but2" onclick="displayTwo()">Check</button>
+            <div id="div2"></div>
+        </div>
+    </div>
+
+    <div id="thirdholder"></div>
+
+    <script>
+        let input1 = document.getElementById("input1");
+        let input2 = document.getElementById("input2");
+        let div1 = document.getElementById("div1");
+        let div2 = document.getElementById("div2");
+        let thirdHolder = document.getElementById("thirdholder");
+
+        let names = [];
+
+        function typesomething(ev) {
+            input1.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+            let inputValue = ev.target.value;
+            div1.innerHTML = inputValue;
+        }
+
+        function displayOne() {
+            names.unshift(input1.value);
+            input1.value = "";
+            thirdHolder.innerHTML = "";
+
+            for (let index = 0; index < names.length; index++) {
+                const element = names[index];
+                thirdHolder.innerHTML += element + `<button onclick="del(${index})">Delete</button><br/>`;
+            }
+        }
+
+        function del(index) {
+            names.splice(index, 1);
+            displayOne();
+        }
+
+        function writesomething() {
+            div2.innerHTML = input2.value;
+        }
+
+        function displayTwo() {
+    count = 0; // Reset count to 0 each time the function is called
+    
+    for (let index = 0; index < names.length; index++) {
+        const element = names[index];
+        if (input2.value.includes(element)) {
+            count++;
+            div2.innerHTML = "Available " + count + " times";
+    } else {
+        div2.innerHTML = "Not Available";
+    }
+        }}
+
+ 
+
+    </script>
+</body>
+</html>
